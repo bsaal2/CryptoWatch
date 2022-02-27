@@ -3,6 +3,15 @@ const SCHEDULE_TIME = {
     FIVE_MIN: '*/5 * * * *'
 };
 
+const ACTION = {
+    CREATE: 'create',
+    UPDATE: 'update'
+};
+
+const DATA_SCRAPE_URL = 'https://coinranking.com/?page=1';
+
 module.exports = {
-    SCHEDULE_TIME
+    SCHEDULE_TIME,
+    DATA_SCRAPE_URL,
+    ACTION
 };

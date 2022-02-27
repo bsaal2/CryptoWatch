@@ -4,7 +4,7 @@ const timeout = require('connect-timeout');
 
 const crypto = require('./routes/crypto');
 
-const { MiddlewareService, CronJobService } = require('./services');
+const { MiddlewareService, CronJobService, DataScrapeService } = require('./services');
 const { API_TIMEOUT } = require('./constant');
 
 const app = express();
@@ -22,6 +22,9 @@ app.get('*', MiddlewareService.unregisteredRoute);
 app.use(MiddlewareService.errorHandling);
 
 /** Execute the cron job */
-CronJobService.scheduleInEveryFiveMin();
+// CronJobService.scheduleInEveryFiveMin();
+
+/** Test the data scrapping */
+DataScrapeService.scrapeDataRequestPromise('https://coinranking.com/?page=1');
 
 module.exports = app;
