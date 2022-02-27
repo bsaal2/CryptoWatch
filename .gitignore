@@ -1,2 +1,6 @@
 # Vscode settings
 .vscode/*
+
+
+# Server
+server/node_modules
