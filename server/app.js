@@ -22,9 +22,9 @@ app.get('*', MiddlewareService.unregisteredRoute);
 app.use(MiddlewareService.errorHandling);
 
 /** Execute the cron job */
-// CronJobService.scheduleInEveryFiveMin();
+CronJobService.scheduleInEveryFiveMin();
 
 /** Test the data scrapping */
-DataScrapeService.scrapeDataRequestPromise('https://coinranking.com/?page=1');
+// DataScrapeService.scrapeDataRequestPromise('https://coinranking.com/?page=1');
 
 module.exports = app;
