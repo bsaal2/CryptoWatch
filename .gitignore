@@ -4,6 +4,7 @@
 
 # Server
 server/node_modules
+server/.env
 
 # Others
 .DS_Store
