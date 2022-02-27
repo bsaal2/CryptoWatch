@@ -4,7 +4,7 @@ const timeout = require('connect-timeout');
 
 const crypto = require('./routes/crypto');
 
-const { MiddlewareService } = require('./services');
+const { MiddlewareService, CronJobService } = require('./services');
 const { API_TIMEOUT } = require('./constant');
 
 const app = express();
@@ -20,5 +20,8 @@ app.get('*', MiddlewareService.unregisteredRoute);
 
 /** Middleware: To handle the application errors  */
 app.use(MiddlewareService.errorHandling);
+
+/** Execute the cron job */
+CronJobService.scheduleInEveryFiveMin();
 
 module.exports = app;

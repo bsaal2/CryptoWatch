@@ -1,5 +1,6 @@
 const SCHEDULE_TIME = {
-    FIVE_MIN: '1 * * * *'
+    EVERY_SECOND: '*/1 * * * * *',
+    FIVE_MIN: '*/5 * * * *'
 };
 
 module.exports = {
