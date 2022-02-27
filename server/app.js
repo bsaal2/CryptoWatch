@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const timeout = require('connect-timeout');
 
+const crypto = require('./routes/crypto');
+
 const { API_TIMEOUT } = require('./constant');
 
 const app = express();
@@ -10,8 +12,6 @@ const app = express();
 app.use(timeout(API_TIMEOUT));
 app.use(bodyParser.json({ limit: '2mb' }));
 
-app.get('/', (req, res) => {
-    res.status(200).json({ message: 'Hey' });
-});
+app.use(crypto);
 
 module.exports = app;
