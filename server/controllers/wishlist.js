@@ -1,5 +1,6 @@
 const { wishlist } = require('../models');
 const { STATUS_CODE } = require('./constant');
+const { ValidationHelper } = require('../helpers');
 
 class WishlistController {
     getAllWishlist = async (req, res, next) => {
@@ -21,7 +22,7 @@ class WishlistController {
 
     addWishlist = async (req, res, next) => {
         try {
-            const { code, min_price, max_price } = req.body;
+            if (ValidationHelper.serverParameterValidationCheck(req, res)) return;
 
             await wishlist.create(req.body);
 
