@@ -18,7 +18,12 @@
     "cheerio": "^1.0.0-rc.10",
     "connect-timeout": "^1.9.0",
     "express": "^4.17.3",
+    "mysql2": "^2.3.3",
     "node-cron": "^3.0.0",
-    "request-promise": "^4.2.6"
+    "request-promise": "^4.2.6",
+    "sequelize": "^6.17.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
   }
 }
