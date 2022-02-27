@@ -1,11 +1,9 @@
 const rp = require('request-promise');
 const cheerio = require('cheerio');
 
+const MemoryStorage = require('./memoryStorage');
+const { crypto } = require('../models');
 const { DATA_SCRAPE_URL, ACTION } = require('./constant');
-
-/** In Memory State */
-const cryptoList = [];
-const map = new Map();
 
 class DataScrape {
 
@@ -16,6 +14,30 @@ class DataScrape {
         PRICE: '.valuta',
         CHANGE: '.change'
     };
+
+    insertCryptoListDb = async (list) => {
+        const dbOperationList = [];
+        list.forEach((each, index) => {
+            const { action, ...payload } = each;
+            if (each.action === ACTION.CREATE) {
+                dbOperationList.push(crypto.create(payload));
+            }
+
+            if (each.action === ACTION.UPDATE) {
+                const { action, name, code, logo, ...payload } = each;
+                dbOperationList.push(crypto.update(each, { where: { code }}));
+            }
+
+            each.action = null;
+        });
+
+        try {
+            await Promise.all(dbOperationList);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 
     checkChanges = (dataItem, input) => {
         let change = false;
@@ -31,18 +53,18 @@ class DataScrape {
     }
 
     processData = (data) => {
-        if (map.has(data.code)) {
-            const dataIndex = map.get(data.code);
-            const dataItem = cryptoList[dataIndex];
+        if (MemoryStorage.map.has(data.code)) {
+            const dataIndex = MemoryStorage.getItemMap(data.code);
+            const dataItem = MemoryStorage.cryptoList[dataIndex];
             const[change, dataChange] = this.checkChanges(dataItem, data);
             if (change) {
-                data.action = ACTION.UPDATE;
+                dataItem.action = ACTION.UPDATE;
             }
         }
         else {
             data.action = ACTION.CREATE;
-            const addedItemIndex = cryptoList.push(data) - 1;
-            map.set(data.code, addedItemIndex);
+            const addedItemIndex = MemoryStorage.addItemInList(data) - 1;
+            MemoryStorage.setItemInMap(data.code, addedItemIndex);
         }
     }
 
@@ -60,7 +82,7 @@ class DataScrape {
                 }
 
                 if (index === 1) {
-                    data.price = tdItem(this.CURRENCY_SELECTOR.PRICE).text().replace('$', '').trim();
+                    data.price = tdItem(this.CURRENCY_SELECTOR.PRICE).text().replace('$', '').replace(/,/g, '').trim();
                 }
 
                 if (index === 2) {
@@ -72,11 +94,10 @@ class DataScrape {
                 }
             });
 
-            this.processData(data);
+            if (data.code && data.name && data.logo) this.processData(data); // Handling the case of not having any data attributes
         });
 
-        console.log('Map', map);
-        console.log('FinalList', cryptoList);
+        this.insertCryptoListDb(MemoryStorage.cryptoList);
     }
 
     scrapeDataRequestPromise = async (url) => {

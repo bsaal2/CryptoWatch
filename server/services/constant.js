@@ -1,5 +1,5 @@
 const SCHEDULE_TIME = {
-    EVERY_SECOND: '*/1 * * * * *',
+    EVERY_SECOND: '*/1 * * * *',
     FIVE_MIN: '*/5 * * * *'
 };
 
