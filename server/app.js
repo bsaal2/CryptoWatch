@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const timeout = require('connect-timeout');
 
 const crypto = require('./routes/crypto');
+const wishlist = require('./routes/wishlist');
 
 const { MiddlewareService, CronJobService, DataScrapeService } = require('./services');
 const { API_TIMEOUT } = require('./constant');
@@ -14,6 +15,7 @@ app.use(timeout(API_TIMEOUT));
 app.use(bodyParser.json({ limit: '2mb' }));
 
 app.use(crypto);
+app.use(wishlist);
 
 /** Middleware: Route Not Found */
 app.get('*', MiddlewareService.unregisteredRoute);
