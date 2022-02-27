@@ -15,7 +15,10 @@ app.use(bodyParser.json({ limit: '2mb' }));
 
 app.use(crypto);
 
-/** Route Not Found */
+/** Middleware: Route Not Found */
 app.get('*', MiddlewareService.unregisteredRoute);
+
+/** Middleware: To handle the application errors  */
+app.use(MiddlewareService.errorHandling);
 
 module.exports = app;
