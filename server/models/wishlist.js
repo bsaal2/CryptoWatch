@@ -16,5 +16,9 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: true
     });
 
+    Wishlist.associate = function(models) {
+        models.wishlist.belongsTo(models.crypto);
+    }
+
     return Wishlist;
 };
