@@ -15,10 +15,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.FLOAT
         },
         marketCap: {
-            type: DataTypes.FLOAT
+            type: DataTypes.STRING
         },
         change: {
-            type: DataTypes.FLOAT
+            type: DataTypes.STRING
         }
     }, 
     {
