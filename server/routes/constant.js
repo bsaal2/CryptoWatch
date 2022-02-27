@@ -3,7 +3,8 @@ const ROUTES = {
         GET_ALL: '/v1.0/cryptos'
     },
     WISHLIST: {
-        GET_ALL: '/v1.0/wishlists'
+        GET_ALL: '/v1.0/wishlists',
+        POST: '/v1.0/wishlist'
     }
 };
 
