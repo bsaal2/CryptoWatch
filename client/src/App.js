@@ -3,14 +3,17 @@ import './App.css';
 import React from 'react';
 
 
-import { TheFooter, TheHeader, TheContent } from './containers';
+import { TheFooter, TheHeader } from './containers';
+import { Home, Watchlist, Notification } from './views/pages';
 
 function App() {
   return (
     <Router>
         <TheHeader />
         <Routes>
-          <Route exact path='/' element={<TheContent/>} />
+          <Route exact path='/' element={<Home/>} />
+          <Route exact path='/watchlist' element={<Watchlist/>} />
+          <Route exact path='/notification' element={<Notification/>} />
         </Routes>
         <TheFooter />
     </Router>

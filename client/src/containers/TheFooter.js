@@ -1,8 +1,10 @@
 const TheFooter = () => {
     return (
-        <div className="footer">
-            <h1>Footer</h1>
-        </div>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <div className="container-fluid">
+                <span className="navbar-brand" href="#">Footer</span>
+            </div>
+        </nav>
     )
 }
 

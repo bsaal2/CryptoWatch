@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+/* Custom css */
+div.wrapper, ul.list-group {
+  margin: 100px 0;
+}
