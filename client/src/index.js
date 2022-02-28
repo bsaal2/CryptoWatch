@@ -4,9 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import Store, { StoreProvider } from './store/store';
+const storeObj = new Store();
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StoreProvider store={storeObj}>
+      <App />
+    </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
