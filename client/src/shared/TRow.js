@@ -15,9 +15,14 @@ const TRow = ({ data }) => {
             <td>{ data.marketCap }</td>
             <td>{ data.change } </td>
             <td>
-                { !data.min_price && ( <button onClick={() => Crypto.addToWishlist({ code: data.code, min_price: MIN_PRICE, max_price: MAX_PRICE })} className="btn btn-primary">
+                { !data.min_price && !data.wishlist && ( <button onClick={() => Crypto.addToWishlist({ code: data.code, min_price: MIN_PRICE, max_price: MAX_PRICE })} className="btn btn-primary">
                     + Wishlist
                 </button>) }
+
+                { !data.min_price && data.wishlist && ( <button className="btn btn-success">
+                    Wishlisted
+                </button>) }
+
                 {
                 ( data.min_price &&
                   <button onClick={() => Wishlist.removeWishlist(data.id)} className="btn btn-primary">
