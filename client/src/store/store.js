@@ -3,7 +3,7 @@ import { Crypto } from './crypto';
 
 export default class Store {
     constructor() {
-        this.cryptoObj = new Crypto();
+        this.Crypto = new Crypto();
     }
 }
 

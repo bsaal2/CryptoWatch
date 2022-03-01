@@ -1,7 +1,7 @@
 const Watchlist = () => {
     return (
         <div className="body">
-            <div class="container">
+            <div className="container">
                 <div className="wrapper">
                     <h2>Watchlist</h2>
                     <table className="table">
