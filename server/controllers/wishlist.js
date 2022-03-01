@@ -38,8 +38,8 @@ class WishlistController {
             const record = await wishlist.findOne({ where: { cryptoId: cryptoObj.id }});
             if (record) {
                 return res.status(STATUS_CODE.OK).json({
-                    status: STATUS_CODE.OK,
-                    error: false,
+                    status: STATUS_CODE.DUPLICATE,
+                    error: true,
                     message: 'Already in the wishlist'
                 });
             }
@@ -50,7 +50,7 @@ class WishlistController {
             return res.status(STATUS_CODE.OK).json({
                 status: STATUS_CODE.OK,
                 error: false,
-                message: 'Success'
+                message: 'Success on adding to wishist'
             });
         }   
 
