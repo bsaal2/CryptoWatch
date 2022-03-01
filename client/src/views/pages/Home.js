@@ -1,7 +1,7 @@
 const Home = () => {
     return (
         <div className="body">
-            <div class="container">
+            <div className="container">
                 <div className="wrapper">
                     <h2>CryptoCurrency</h2>
                     <table className="table">
@@ -31,27 +31,27 @@ const Home = () => {
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
+                                <td colSpan="2">Larry the Bird</td>
                                 <td>@twitter</td>
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
+                                <td colSpan="2">Larry the Bird</td>
                                 <td>@twitter</td>
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
+                                <td colSpan="2">Larry the Bird</td>
                                 <td>@twitter</td>
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
+                                <td colSpan="2">Larry the Bird</td>
                                 <td>@twitter</td>
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
+                                <td colSpan="2">Larry the Bird</td>
                                 <td>@twitter</td>
                             </tr>
                         </tbody>
