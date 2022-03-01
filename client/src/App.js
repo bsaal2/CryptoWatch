@@ -1,20 +1,29 @@
+import React, { Suspense } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import React from 'react';
 
 
+import { RouteList } from './routes';
 import { TheFooter, TheHeader } from './containers';
-import { Home, Watchlist, Notification } from './views/pages';
 
 function App() {
   return (
     <Router>
         <TheHeader />
-        <Routes>
-          <Route exact path='/' element={<Home/>} />
-          <Route exact path='/watchlist' element={<Watchlist/>} />
-          <Route exact path='/notification' element={<Notification/>} />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            { RouteList.map((route, index) => {
+              return route.component && (
+                <Route
+                  key={index}
+                  path={route.path}
+                  name={route.name}
+                  element={route.component}
+                />
+              )
+            })}
+          </Routes>
+        </Suspense>
         <TheFooter />
     </Router>
   );
