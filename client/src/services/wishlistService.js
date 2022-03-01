@@ -1,13 +1,13 @@
 import AxiosService from './axiosService';
 import { API_URL, RESOURCE } from './constant';
 
-class CryptoService {
+class WishlistService {
     constructor() {
         this.Axios = new AxiosService();
     }
 
-    getAllCrypto(params={}) {
-        return this.Axios.GET(API_URL + RESOURCE.CRYPTO.GET_ALL, params);
+    getAllWishlist(params={}) {
+        return this.Axios.GET(API_URL + RESOURCE.WISHLIST.GET_ALL, params);
     }
 
     addWishlist(data={}) {
@@ -15,4 +15,4 @@ class CryptoService {
     }
 }
 
-export default CryptoService;
+export default WishlistService;

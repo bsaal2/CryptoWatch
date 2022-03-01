@@ -1,9 +1,9 @@
 import { makeObservable, observable, runInAction, action } from 'mobx';
 
-import { CryptoService } from '../services';
+import { WishlistService } from '../services';
 
-export class Crypto {
-    cryptoList = [];
+export class Wishlist {
+    wishList = [];
     totalRecord = 0;
     page = 0;
     loading = false;
@@ -11,28 +11,24 @@ export class Crypto {
 
     constructor() {
         makeObservable(this, {
-            cryptoList: observable,
+            wishList: observable,
             totalRecord: observable,
             page: observable,
             loading: observable,
             setPage: action
         });
-        this.Crypto = new CryptoService();
+        this.Wishlist = new WishlistService();
     }
 
     setPage(page) {
         this.page = page;
     }
 
-    async getAllCrypto(page) {
+    async addWishlist(data={}) {
         try {
             this.loading = true;
-            const params = { params: { page, pageSize: 10 }};
-            const { data } = await this.Crypto.getAllCrypto(params);
+            await this.Wishlist.addWishlist(data);
             runInAction(() => {
-                this.page = page;
-                this.cryptoList = data.data;
-                this.totalRecord = data.totalRecord;
                 this.loading = false;
             });
         }
@@ -43,11 +39,15 @@ export class Crypto {
         }
     }
 
-    async addToWishlist(data={}) {
+    async getAllWishlist(page) {
         try {
             this.loading = true;
-            await this.Crypto.addWishlist(data);
+            const params = { params: { page, pageSize: 10 }};
+            const { data } = await this.Crypto.getAllCrypto(params);
             runInAction(() => {
+                this.page = page;
+                this.wishList = data.data;
+                this.totalRecord = data.totalRecord;
                 this.loading = false;
             });
         }

@@ -26,12 +26,13 @@ const Home = () => {
                                 <th scope="col">Price</th>
                                 <th scope="col">Market Cap</th>
                                 <th scope="col">24 H</th>
+                                <th scope='col'>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             { Crypto.cryptoList && Crypto.cryptoList.map((crypto, index) => {
                                 return crypto.name && (
-                                    <TRow key={index} data={{...crypto, index}} />
+                                    <TRow key={index}  data={{...crypto, index}} />
                                 )
                             })}
                         </tbody>
