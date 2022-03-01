@@ -13,6 +13,10 @@ class WishlistService {
     addWishlist(data={}) {
         return this.Axios.POST(API_URL + RESOURCE.WISHLIST.POST, data);
     }
+
+    removeWishlist(id) {
+        return this.Axios.DELETE(API_URL + RESOURCE.WISHLIST.DELETE + id);
+    }
 }
 
 export default WishlistService;

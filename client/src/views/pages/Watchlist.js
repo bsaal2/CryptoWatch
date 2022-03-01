@@ -1,9 +1,28 @@
+import { useContext, useEffect } from 'react';
+import { observer } from 'mobx-react';
+import { DataContext } from '../../store/store';
+import { TRow, Pagination, Alert } from '../../shared';
+
 const Watchlist = () => {
+    const { Wishlist } = useContext(DataContext);
+
+    useEffect(() => {
+        Wishlist.getAllWishlist(Wishlist.page);
+
+        return () => {
+            Wishlist.resetData();
+        }
+    }, [Wishlist.page]);
+
     return (
         <div className="body">
             <div className="container">
                 <div className="wrapper">
                     <h2>Watchlist</h2>
+                    <p>Total Record: { Wishlist.totalRecord }</p>
+
+                    { Wishlist.message && <Alert message={Wishlist.message} /> }
+
                     <table className="table">
                         <thead>
                             <tr>
@@ -14,61 +33,23 @@ const Watchlist = () => {
                                 <th scope="col">Price</th>
                                 <th scope="col">Market Cap</th>
                                 <th scope="col">24 H</th>
+                                <th scope='col'>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colSpan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colSpan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colSpan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colSpan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colSpan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            { Wishlist.wishList && Wishlist.wishList.map((wish, index) => {
+                                return (
+                                    <TRow key={index}  data={{...wish.crypto, id: wish.id, min_price: wish.min_price, max_price:wish.max_price, index}} />
+                                )
+                            })}
                         </tbody>
                     </table>
-                    <nav aria-label="Page navigation example">
-                        <ul className="pagination">
-                            <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-                            <li className="page-item"><a className="page-link" href="#">1</a></li>
-                            <li className="page-item"><a className="page-link" href="#">2</a></li>
-                            <li className="page-item"><a className="page-link" href="#">3</a></li>
-                            <li className="page-item"><a className="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
+
+                    <Pagination StoreObj={Wishlist} />
                 </div>
             </div>
         </div>
     )
 }
 
-export default Watchlist;
+export default observer(Watchlist);

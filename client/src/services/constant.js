@@ -6,7 +6,8 @@ const RESOURCE = {
     },
     WISHLIST: {
         GET_ALL: '/v1.0/wishlists',
-        POST: '/v1.0/wishlist'
+        POST: '/v1.0/wishlist',
+        DELETE: '/v1.0/wishlist/'
     }
 };
 

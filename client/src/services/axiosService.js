@@ -8,6 +8,10 @@ class AxiosService {
     POST(url, data={}) {
         return axios.post(url, data);
     }
+
+    DELETE(url) {
+        return axios.delete(url);
+    }
 }
 
 export default AxiosService;
