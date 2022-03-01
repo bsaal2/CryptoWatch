@@ -28,7 +28,7 @@ class MiddlewareService {
      */
     errorHandling = (error, req, res, next) => {
         return res.status(error.status).json({
-            status: error.status,
+            status: error.status || STATUS_CODE.SERVER_ERROR,
             error: true,
             message: error.message
         });
