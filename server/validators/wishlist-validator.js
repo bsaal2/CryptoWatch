@@ -1,5 +1,24 @@
 const { checkSchema } = require('express-validator/check');
 
+const getAllWishlistValidator = checkSchema(
+    {
+        page: {
+            in: ['query'],
+            exists: true,
+            isInt: true,
+            toInt: true,
+            trim: true
+        },
+        pageSize: {
+            in: ['query'],
+            exists: true,
+            isInt: true,
+            toInt: true,
+            trim: true
+        }
+    }
+);
+
 const createWishlistValidator = checkSchema(
     {
         code: {
@@ -24,6 +43,19 @@ const createWishlistValidator = checkSchema(
     }
 );
 
+const deleteWishlistValidator = checkSchema(
+    {
+        id: {
+            in: ['params'],
+            exists: true,
+            isInt: true,
+            toInt: true
+        }
+    }
+);
+
 module.exports = {
-    createWishlistValidator
+    getAllWishlistValidator,
+    createWishlistValidator,
+    deleteWishlistValidator
 };
