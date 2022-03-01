@@ -1,13 +1,17 @@
 import { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { DataContext } from "../../store/store";
-import { TRow, Pagination } from '../../shared';
+import { TRow, Pagination, Alert } from '../../shared';
 
 const Home = () => {
     const { Crypto } = useContext(DataContext);
 
     useEffect(() => {
         Crypto.getAllCrypto(Crypto.page);
+
+        return () => {
+            Crypto.resetData();
+        }
     }, [Crypto.page]);
 
     return (
@@ -16,6 +20,9 @@ const Home = () => {
                 <div className="wrapper">
                     <h2>CryptoCurrency</h2>
                     <p>Total Record: { Crypto.totalRecord }</p>
+                    
+                    { Crypto.message && <Alert message={Crypto.message} /> }
+
                     <table className="table">
                         <thead>
                             <tr>

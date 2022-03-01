@@ -6,6 +6,7 @@ export class Crypto {
     cryptoList = [];
     totalRecord = 0;
     page = 0;
+    message = '';
     loading = false;
 
 
@@ -14,14 +15,21 @@ export class Crypto {
             cryptoList: observable,
             totalRecord: observable,
             page: observable,
+            message: observable,
             loading: observable,
-            setPage: action
+            setPage: action,
+            resetData: action
         });
         this.Crypto = new CryptoService();
     }
 
     setPage(page) {
         this.page = page;
+    }
+
+    resetData() {
+        this.message = ''
+        this.loading = false;
     }
 
     async getAllCrypto(page) {
@@ -46,13 +54,15 @@ export class Crypto {
     async addToWishlist(data={}) {
         try {
             this.loading = true;
-            await this.Crypto.addWishlist(data);
+            const record = await this.Crypto.addWishlist(data);
             runInAction(() => {
+                this.message = record.data.message;
                 this.loading = false;
             });
         }
         catch (error) {
             runInAction(() => {
+                this.message = error.message
                 this.loading = false;
             });
         }
