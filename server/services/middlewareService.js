@@ -12,7 +12,7 @@ class MiddlewareService {
     unregisteredRoute = (req, res, next) => {
         const error = new Error('Not Found');
         error.status = STATUS_CODE.ROUTE_NOT_FOUND
-        error.type = ERROR_TYPE.ROUTE_NOT_FOUND;
+        error.type = ERROR_TYPE.NOT_FOUND;
         error.message = 'Requested route not found';
         next(error);
     }

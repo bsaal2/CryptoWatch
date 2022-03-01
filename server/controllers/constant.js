@@ -1,6 +1,6 @@
 const STATUS_CODE = {
     OK: 200,
-    ROUTE_NOT_FOUND: 404,
+    NOT_FOUND: 404,
     SERVER_ERROR: 500
 };
 
