@@ -25,5 +25,9 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: true
     });
 
+    Crypto.associate = function(models) {
+        models.crypto.hasOne(models.wishlist);
+    }
+
     return Crypto;
 };

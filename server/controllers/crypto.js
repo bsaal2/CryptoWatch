@@ -1,4 +1,4 @@
-const { crypto } = require('../models');
+const { crypto, wishlist } = require('../models');
 const { STATUS_CODE } = require('./constant');
 const { ValidationHelper } = require('../helpers');
 
@@ -10,7 +10,16 @@ class CryptoController {
             const { page, pageSize } = req.query;
             const offset = +page * +pageSize;
 
-            const cryptoList = await crypto.findAll({ offset, limit: +pageSize });
+            const cryptoList = await crypto.findAll({ 
+                include: [
+                    {
+                        attributes: ['id'],
+                        model: wishlist
+                    }
+                ],
+                offset,
+                limit: +pageSize 
+            });
             const total = await crypto.count();
             
             return res.status(STATUS_CODE.OK).json({
