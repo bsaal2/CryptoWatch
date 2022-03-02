@@ -15,6 +15,11 @@ class DataScrape {
         CHANGE: '.change'
     };
 
+    /**
+     * Function to insert the scraped data to the db
+     * @param {*} list
+     * @memberof DataScrape
+     */
     insertCryptoListDb = async (list) => {
         const dbOperationList = [];
         list.forEach((each, index) => {
@@ -39,6 +44,13 @@ class DataScrape {
         }
     }
 
+    /**
+     * Function to check whether the update happened in the crypto or not
+     * This decides whether to update the db or not
+     * @param {*} dataItem
+     * @param {*} input
+     * @memberof DataScrape
+     */
     checkChanges = (dataItem, input) => {
         let change = false;
 
@@ -51,7 +63,14 @@ class DataScrape {
 
         return [change, dataItem];
     }
-
+    
+    /**
+     * Function to check whether data exists on map or not
+     * If exists then update
+     * other insert
+     * @param {*} data
+     * @memberof DataScrape
+     */
     processData = (data) => {
         if (MemoryStorage.map.has(data.code)) {
             const dataIndex = MemoryStorage.getItemMap(data.code);
@@ -68,6 +87,12 @@ class DataScrape {
         }
     }
 
+    /**
+     * Function to process the html data scrapped from the website
+     * Cheerio library is used
+     * @param {*} html
+     * @memberof DataScrape
+     */
     processHtml = (html) => {
         const $ = cheerio.load(html);
         $('tr.table__row').each((index, el) => {
@@ -100,6 +125,11 @@ class DataScrape {
         this.insertCryptoListDb(MemoryStorage.cryptoList);
     }
 
+    /**
+     * Function to start the data scraping
+     * @param {*} url
+     * @memberof DataScrape
+     */
     scrapeDataRequestPromise = async (url) => {
         const html = await rp(url);
         this.processHtml(html);

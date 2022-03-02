@@ -1,3 +1,4 @@
+/** Helper class to store the data by using the in memory implementation */
 class MemoryStorage {
     cryptoList = [];
     map = new Map();

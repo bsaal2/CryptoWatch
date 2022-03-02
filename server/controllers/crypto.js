@@ -3,6 +3,14 @@ const { STATUS_CODE } = require('./constant');
 const { ValidationHelper } = require('../helpers');
 
 class CryptoController {
+
+    /**
+     * Function to list all the crypto
+     * @param {*} req
+     * @param {*} res
+     * @param {*} next
+     * @memberof CryptoController
+     */
     getAllCrypto = async (req, res, next) => {
         try {
             if (ValidationHelper.serverParameterValidationCheck(req, res)) return;

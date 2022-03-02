@@ -16,6 +16,7 @@ app.use(cors());
 app.use(timeout(API_TIMEOUT));
 app.use(bodyParser.json({ limit: '2mb' }));
 
+/** All the application routes */
 app.use(crypto);
 app.use(wishlist);
 
@@ -28,7 +29,5 @@ app.use(MiddlewareService.errorHandling);
 /** Execute the cron job */
 CronJobService.scheduleInEveryFiveMin();
 
-/** Test the data scrapping */
-// DataScrapeService.scrapeDataRequestPromise('https://coinranking.com/?page=1');
 
 module.exports = app;

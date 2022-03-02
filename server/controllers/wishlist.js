@@ -3,6 +3,14 @@ const { STATUS_CODE } = require('./constant');
 const { ValidationHelper } = require('../helpers');
 
 class WishlistController {
+
+    /**
+     * Function to get all the wishlisted crypto
+     * @param {*} req
+     * @param {*} res
+     * @param {*} next
+     * @memberof WishlistController
+     */
     getAllWishlist = async (req, res, next) => {
         try {
             if (ValidationHelper.serverParameterValidationCheck(req, res)) return;
@@ -37,6 +45,14 @@ class WishlistController {
         }
     }
 
+    /**
+     * Function add the crypto wishlist
+     * Check whether it has been already on the list or not
+     * @param {*} req
+     * @param {*} res
+     * @param {*} next
+     * @memberof WishlistController
+     */
     addWishlist = async (req, res, next) => {
         try {
             if (ValidationHelper.serverParameterValidationCheck(req, res)) return;
@@ -77,6 +93,13 @@ class WishlistController {
         }
     }
 
+    /**
+     * Function to remove the crypto from the wishlist
+     * @param {*} req
+     * @param {*} res
+     * @param {*} next
+     * @memberof WishlistController
+     */
     deleteWishlist = async (req, res, next) => {
         try {
             if (ValidationHelper.serverParameterValidationCheck(req, res)) return;

@@ -1,6 +1,15 @@
 const { validationResult } = require('express-validator/check');
 
 class ValidationHelper {
+
+    /**
+     * Function to validate all the parameters of the API
+     * Express Validator
+     * @param {*} req
+     * @param {*} res
+     * @return {*} 
+     * @memberof ValidationHelper
+     */
     serverParameterValidationCheck(req, res) {
         const validationError = validationResult(req);
 
