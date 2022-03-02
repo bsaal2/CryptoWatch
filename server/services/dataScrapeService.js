@@ -2,8 +2,8 @@ const rp = require('request-promise');
 const cheerio = require('cheerio');
 
 const MemoryStorage = require('./memoryStorage');
-const { crypto } = require('../models');
-const { DATA_SCRAPE_URL, ACTION } = require('./constant');
+const { crypto, notification } = require('../models');
+const { ACTION, STATUS } = require('./constant');
 
 class DataScrape {
 
@@ -44,6 +44,54 @@ class DataScrape {
         }
     }
 
+
+    addNotificationDB = async (list) => {
+        const dbOperation = [];
+
+        list.forEach((each, index) => {
+            let description = `${each.code} is on the move. The Price is ${each.status === STATUS.HIGH ? 'up' : 'down'} ${each.change} in 24 hrs to ${each.price}`;
+            
+            const payload = {
+                title: each.status === STATUS.HIGH ? 'Price went up' : 'Price went down',
+                status: each.status,
+                resourceId: each.id,
+                description
+            };
+
+            dbOperation.push(notification.create(payload));
+        });
+
+        try {
+            await Promise.all(dbOperation);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    processForNotification = (crypto) => {
+        // check whether data exists in wishlist or not
+        // if not exists then do nothing
+        // if exists then check the price for min_price and max_price
+        // Trigger notification based on it
+        console.log(MemoryStorage.wishList);
+        console.log(crypto);
+        const notificationList = [];
+        const obj = MemoryStorage.wishList.find((each) => each.code === crypto.code);
+        if (obj) {
+            const { code, min_price, max_price } = obj;
+            if (crypto.price < min_price) {
+                notificationList.push({ id: obj.cryptoId, code, change: crypto.change, price: crypto.price, status: STATUS.LOW });
+            }
+
+            if (crypto.price > max_price) {
+                notificationList.push({ id: obj.cryptoId, status: STATUS.HIGH });
+            }
+        }
+
+        this.addNotificationDB(notificationList);
+    }
+
     /**
      * Function to check whether the update happened in the crypto or not
      * This decides whether to update the db or not
@@ -78,6 +126,7 @@ class DataScrape {
             const[change, dataChange] = this.checkChanges(dataItem, data);
             if (change) {
                 dataItem.action = ACTION.UPDATE;
+                this.processForNotification(dataItem);
             }
         }
         else {

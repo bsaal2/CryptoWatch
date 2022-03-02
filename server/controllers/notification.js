@@ -5,6 +5,31 @@ const { ValidationHelper } = require('../helpers');
 class NotificationController {
 
     /**
+     * Get total notification
+     * @param {*} req
+     * @param {*} res
+     * @param {*} next
+     * @memberof NotificationController
+     */
+    getNotificationCount = async (req, res, next) => {
+        try {
+
+            const total = await notification.count();
+
+            return res.status(STATUS_CODE.OK).json({
+                status: STATUS_CODE.OK,
+                message: 'Success',
+                error: false,
+                totalRecord: total
+            });
+        }
+        catch (error) {
+            error.status = STATUS_CODE.SERVER_ERROR;
+            next(error);
+        }
+    }
+
+    /**
      * Function to get all the notification
      * @param {*} req
      * @param {*} res
@@ -19,21 +44,17 @@ class NotificationController {
             const offset = +page * +pageSize;
 
             const list = await notification.findAll({ 
-                attributes: ['id', 'min_price', 'max_price'],
-                include: [
-                    {   
-                        attributes: ['id', 'code', 'logo', 'name', 'price', 'marketCap', 'change'],
-                        model: crypto
-                    }
-                ],
+                attributes: ['id', 'title', 'description', 'status'],
                 offset, 
-                limit: +pageSize 
+                limit: +pageSize,
+                order: [['updatedAt', 'DESC']]
             });
             const total = await notification.count();
             
             return res.status(STATUS_CODE.OK).json({
                 status: STATUS_CODE.OK,
                 message: 'Success',
+                error: false,
                 data: list,
                 totalRecord: total
             });

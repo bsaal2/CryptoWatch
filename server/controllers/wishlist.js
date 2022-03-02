@@ -1,6 +1,7 @@
 const { crypto, wishlist } = require('../models');
 const { STATUS_CODE } = require('./constant');
 const { ValidationHelper } = require('../helpers');
+const { MemoryStorageoryStorage, MemoryStorage } = require('../services');
 
 class WishlistController {
 
@@ -80,6 +81,8 @@ class WishlistController {
             req.body = { ...req.body, cryptoId: cryptoObj.id };
             await wishlist.create(req.body);
 
+            MemoryStorage.addItemInWishlist(req.body);
+
             return res.status(STATUS_CODE.OK).json({
                 status: STATUS_CODE.OK,
                 error: false,
@@ -116,6 +119,7 @@ class WishlistController {
             }
 
             await record.destroy({ force: true });
+            MemoryStorage.removeItemFromWishlist(id);
 
             return res.status(STATUS_CODE.OK).json({
                 status: STATUS_CODE.OK,

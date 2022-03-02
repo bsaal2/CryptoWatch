@@ -9,7 +9,7 @@ class CronJobService {
      * @memberof CronJobService
      */
     scheduleInEveryFiveMin = () => {
-        cron.schedule(SCHEDULE_TIME.FIVE_MIN, () => {
+        cron.schedule(SCHEDULE_TIME.EVERY_MINUTE, () => {
             console.log(`Running in every five minutes ${new Date().toString()}`);
             DataScrapeService.scrapeDataRequestPromise(DATA_SCRAPE_URL);
         });

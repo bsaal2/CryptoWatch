@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const crypto = require('./routes/crypto');
 const wishlist = require('./routes/wishlist');
+const notification = require('./routes/notification');
 
 const { MiddlewareService, CronJobService, DataScrapeService } = require('./services');
 const { API_TIMEOUT } = require('./constant');
@@ -19,6 +20,7 @@ app.use(bodyParser.json({ limit: '2mb' }));
 /** All the application routes */
 app.use(crypto);
 app.use(wishlist);
+app.use(notification);
 
 /** Middleware: Route Not Found */
 app.get('*', MiddlewareService.unregisteredRoute);

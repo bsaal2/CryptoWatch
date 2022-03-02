@@ -8,6 +8,7 @@ const ROUTES = {
         DELETE: '/v1.0/wishlist/:id'
     },
     NOTIFICATION: {
+        GET_COUNT: '/v1.0/notifications/count',
         GET_ALL: '/v1.0/notifications',
         DELETE: '/v1.0/notification/:id'
     }

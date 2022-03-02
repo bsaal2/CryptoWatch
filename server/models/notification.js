@@ -8,15 +8,14 @@ module.exports = (sequelize, DataTypes) => {
         },
         status: {
             type: DataTypes.STRING
+        },
+        resourceId: {
+            type: DataTypes.BIGINT
         }
     }, 
     {
         timestamps: true
     });
-
-    Notification.associate = function(models) {
-        models.notification.belongsTo(models.crypto);
-    }
 
     return Notification;
 };

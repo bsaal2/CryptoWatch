@@ -1,5 +1,5 @@
 const SCHEDULE_TIME = {
-    EVERY_SECOND: '*/1 * * * *',
+    EVERY_MINUTE: '*/1 * * * *',
     FIVE_MIN: '*/5 * * * *'
 };
 
@@ -8,10 +8,16 @@ const ACTION = {
     UPDATE: 'update'
 };
 
+const STATUS = {
+    HIGH: 'high',
+    LOW: 'low'
+};
+
 const DATA_SCRAPE_URL = 'https://coinranking.com/?page=1';
 
 module.exports = {
     SCHEDULE_TIME,
     DATA_SCRAPE_URL,
-    ACTION
+    ACTION,
+    STATUS
 };
