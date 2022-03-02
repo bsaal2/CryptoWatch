@@ -41,3 +41,7 @@
 div.wrapper, ul.list-group {
   margin: 100px 0;
 }
+.notification-link {
+  text-decoration: none;
+  color: rgba(0,0,0,.9);
+}

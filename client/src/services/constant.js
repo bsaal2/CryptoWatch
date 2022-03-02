@@ -8,6 +8,11 @@ const RESOURCE = {
         GET_ALL: '/v1.0/wishlists',
         POST: '/v1.0/wishlist',
         DELETE: '/v1.0/wishlist/'
+    },
+    NOTIFICATION: {
+        GET_COUNT: '/v1.0/notifications/count',
+        GET_ALL: '/v1.0/notifications',
+        DELETE: '/v1.0/notification'
     }
 };
 

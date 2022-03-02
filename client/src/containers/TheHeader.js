@@ -1,6 +1,20 @@
+import { useContext, useEffect } from 'react';
+import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
+import { DataContext } from '../store/store';
 
 const TheHeader = () => {
+    const { Notification } = useContext(DataContext);
+    console.log(Notification);
+
+    useEffect(() => {
+        Notification.getNotificationCount();
+
+        return () => {
+            Notification.resetData();
+        }
+    }, []);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
@@ -18,7 +32,9 @@ const TheHeader = () => {
                     </li>
                 </ul>
                 <div className="d-flex">
-                    <Link to="/notification">Notification <span className="badge bg-secondary">6</span> </Link>
+                    <Link className='notification-link' to="/notification">Notification 
+                        { Notification.totalRecord > 0 && (<span className="badge bg-secondary">{ Notification.totalRecord }</span>) }
+                    </Link>
                 </div>
                 </div>
             </div>
@@ -26,4 +42,4 @@ const TheHeader = () => {
     )
 }
 
-export default TheHeader;
+export default observer(TheHeader);

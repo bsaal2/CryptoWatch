@@ -1,17 +1,37 @@
+import { useContext, useEffect } from 'react';
+import { observer } from 'mobx-react';
+import { DataContext } from "../../store/store";
+import { Pagination } from '../../shared';
+
 const Notification = () => {
+    const { Notification } = useContext(DataContext);
+
+    useEffect(() => {
+        Notification.getAllNotification(Notification.page);
+
+        return () => {
+            Notification.resetData();
+        }
+    }, [Notification.page]);
+
     return (
         <div className="body">
             <div className="container">
-                <ul class="list-group">
-                    <li className="list-group-item">An item</li>
-                    <li className="list-group-item">A second item</li>
-                    <li className="list-group-item">A third item</li>
-                    <li className="list-group-item">A fourth item</li>
-                    <li className="list-group-item">And a fifth one</li>
-                </ul>
+                <div className='wrapper'>
+                    <h2>Notifications</h2>
+                    <ul class="list-group">
+                        { Notification.notificationList.map((value, index) => {
+                            return (<li className="list-group-item">
+                                        <strong>{ value.title } </strong> { value. description}
+                                    </li>)
+                        })}
+                    </ul>
+
+                    <Pagination StoreObj={Notification} />
+                </div>
             </div>
         </div>
     )
 }
 
-export default Notification;
+export default observer(Notification);
