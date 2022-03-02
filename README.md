@@ -11,6 +11,10 @@ of this project. This configuration is for server application.
 ![CryptList](/screenshots/cryptolist.png)
 
 ![Watchlist](/screenshots//watchlist.png)
+
+![Notification](/screenshots/notification.png)
+
+![Menu](/screenshots/menu.png)
 ## Contributor
 
 Bishal Giri
