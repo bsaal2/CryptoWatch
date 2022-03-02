@@ -1,4 +1,4 @@
-const APPLICATION_PORT = 3000;
+const APPLICATION_PORT = 3500;
 const API_TIMEOUT = 35000;
 
 module.exports = {

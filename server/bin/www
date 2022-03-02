@@ -1,8 +1,12 @@
 const app = require('../app');
 const http = require('http');
+const models = require('../models');
 const { APPLICATION_PORT } = require('../constant');
 
 const server = http.createServer(app);
-server.listen(APPLICATION_PORT, () => {
-    console.log(`Application is running on the port ${APPLICATION_PORT}`);
+
+models.sequelize.sync().then(() => {
+    server.listen(APPLICATION_PORT, () => {
+        console.log(`Application is running on the port ${APPLICATION_PORT}`);
+    });
 });
